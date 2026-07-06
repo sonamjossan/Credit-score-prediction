@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Credit Scoring Prediction</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-dark px-4">
+    <a href="/" class="navbar-brand">🏠 Dashboard</a>
+</nav>
+<div class="text-end mt-3">
+    <button onclick="toggleMode()" class="btn btn-warning">
+        🌙 Dark / Light
+    </button>
+</div>
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card p-4">
+
+                <h2 class="text-center mb-4">
+                    💳 Credit Scoring Prediction System
+                </h2>
+
+                <!-- FORM -->
+                <form action="/predict" method="POST">
+
+<div class="row g-3">
+
+</div>
+
+
+
+    <div class="col-md-6">
+<label class="form-label">🏦 Account Status</label>
+<input type="number" class="form-control" name="laufkont" placeholder="Enter account status code">
+
+<label class="form-label">📅 Loan Duration (Months)</label>
+<input type="number" class="form-control" name="laufzeit" placeholder="e.g. 12, 24, 36">
+
+<label class="form-label">📋 Credit History</label>
+<input type="number" class="form-control" name="moral" placeholder="Enter credit history code">
+
+<label class="form-label">🎯 Loan Purpose</label>
+<input type="number" class="form-control" name="verw" placeholder="Enter purpose code">
+
+<label class="form-label">💰 Loan Amount</label>
+<input type="number" class="form-control" name="hoehe" placeholder="e.g. 50000">
+
+<label class="form-label">💵 Savings Account Balance</label>
+<input type="number" class="form-control" name="sparkont" placeholder="Enter savings code">
+
+<label class="form-label">💼 Employment Duration</label>
+<input type="number" class="form-control" name="beszeit" placeholder="e.g. 5 years">
+
+<label class="form-label">💳 Installment Rate (%)</label>
+<input type="number" class="form-control" name="rate" placeholder="e.g. 4">
+
+<label class="form-label">👨‍👩‍👧 Marital Status & Gender</label>
+<input type="number" class="form-control" name="famges" placeholder="Enter category code">
+
+<label class="form-label">🤝 Guarantor</label>
+<input type="number" class="form-control" name="buerge" placeholder="0 = No, 1 = Yes">
+
+<label class="form-label">🏠 Years at Current Residence</label>
+<input type="number" class="form-control" name="wohnzeit" placeholder="e.g. 3">
+
+<label class="form-label">🏡 Property Type</label>
+<input type="number" class="form-control" name="verm" placeholder="Enter property code">
+
+<label class="form-label">🎂 Age</label>
+<input type="number" class="form-control" name="alter" placeholder="Enter your age">
+
+<label class="form-label">🏦 Other Existing Loans</label>
+<input type="number" class="form-control" name="weitkred" placeholder="Number of other loans">
+
+<label class="form-label">🏘 Housing Status</label>
+<input type="number" class="form-control" name="wohn" placeholder="Enter housing code">
+
+<label class="form-label">📑 Existing Credits</label>
+<input type="number" class="form-control" name="bishkred" placeholder="e.g. 1">
+
+<label class="form-label">👨‍💼 Occupation</label>
+<input type="number" class="form-control" name="beruf" placeholder="Enter occupation code">
+
+<label class="form-label">👨 Dependents</label>
+<input type="number" class="form-control" name="pers" placeholder="Number of dependents">
+
+<label class="form-label">📞 Telephone</label>
+<input type="number" class="form-control" name="telef" placeholder="0 = No, 1 = Yes">
+
+<label class="form-label">🌍 Foreign Worker</label>
+<input type="number" class="form-control" name="gastarb" placeholder="0 = No, 1 = Yes">
+    </div>
+
+</div>
+                   <button type="submit" class="btn btn-primary w-100 mt-4">
+    🔍 Predict Credit
+</button>
+
+                </form>
+
+                <!-- RESULT SECTION -->
+                {% if prediction is defined %}
+
+                <div class="result-box mt-4">
+                    {{ prediction }}
+                </div>
+                <div class="score-box">
+    ⭐ Credit Score
+    <h2>{{ score }}/100</h2>
+</div>
+<div class="loan-box">
+    <h3>{{ loan }}</h3>
+</div>
+<button onclick="window.print()" class="btn btn-success mt-3 w-100">
+Download Report
+</button>
+
+                <div class="ai-box">
+                    🤖 {{ explanation }}
+                </div>
+
+                <div class="text-center mt-4">
+                    <div id="scoreCircle" class="score-circle">
+                        0
+                    </div>
+                </div>
+
+                <div class="progress mt-3">
+                    <div id="bar" class="progress-bar" style="width:0%"></div>
+                </div>
+
+                <h4 class="mt-4">📊 Analytics Dashboard</h4>
+
+                <canvas id="pieChart"></canvas>
+                <canvas id="barChart"></canvas>
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                <script>
+                    // SAFE VALUES
+                    let good = 85;
+                    let bad = 15;
+
+                    if ("{{ prediction }}" !== "🟢 GOOD CREDIT") {
+                        good = 25;
+                        bad = 75;
+                    }
+
+                    // SCORE
+                    let score = good;
+
+                    // ANIMATION
+                    let circle = document.getElementById("scoreCircle");
+                    let bar = document.getElementById("bar");
+
+                    let count = 0;
+                    let interval = setInterval(() => {
+                        if (count > score) clearInterval(interval);
+                        circle.innerHTML = count;
+                        bar.style.width = count + "%";
+                        count++;
+                    }, 15);
+
+                    // PIE CHART
+                    new Chart(document.getElementById('pieChart'), {
+                        type: 'pie',
+                        data: {
+                            labels: ['Good Credit', 'Bad Credit'],
+                            datasets: [{
+                                data: [good, bad],
+                                backgroundColor: ['#00c853', '#d50000']
+                            }]
+                        }
+                    });
+
+                    // BAR CHART
+                    new Chart(document.getElementById('barChart'), {
+                        type: 'bar',
+                        data: {
+                            labels: ['Credit Score'],
+                            datasets: [
+                                {
+                                    label: 'Good Risk',
+                                    data: [good],
+                                    backgroundColor: '#00c853'
+                                },
+                                {
+                                    label: 'Bad Risk',
+                                    data: [bad],
+                                    backgroundColor: '#d50000'
+                                }
+                            ]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100
+                                }
+                            }
+                        }
+                    });
+
+                </script>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script>
+function toggleMode(){
+    document.body.classList.toggle("light-mode");
+}
+</script>
+
+</body>
+</html>

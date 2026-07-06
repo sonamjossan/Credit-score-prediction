@@ -1,0 +1,244 @@
+/* Background */
+body{
+    background: linear-gradient(135deg,#0f172a,#111827);
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+}
+
+/* Navbar */
+.navbar{
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+}
+
+/* Main Card */
+.card{
+    background: rgba(255,255,255,0.08);
+    border-radius:20px;
+    padding:30px;
+    backdrop-filter: blur(15px);
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+    border:1px solid rgba(255,255,255,.1);
+}
+
+/* Heading */
+h2{
+    color:white;
+    font-weight:bold;
+}
+
+/* LABELS */
+label{
+    display:block;
+    color:#ffffff;
+    font-weight:600;
+    margin-bottom:6px;
+    font-size:15px;
+}
+
+/* Inputs */
+.form-control{
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.15);
+    color:white;
+    border-radius:12px;
+    height:50px;
+    padding:12px;
+}
+
+/* Placeholder */
+.form-control::placeholder{
+    color:#d1d5db;
+    opacity:1;
+    font-weight:500;
+}
+
+/* Focus */
+.form-control:focus{
+    background:rgba(255,255,255,.18);
+    color:white;
+    border:1px solid #00c6ff;
+    box-shadow:0 0 10px rgba(0,198,255,.5);
+}
+
+/* Button */
+.btn-primary{
+    background:linear-gradient(90deg,#00c6ff,#0072ff);
+    border:none;
+    border-radius:12px;
+    padding:14px;
+    font-size:18px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 15px rgba(0,114,255,.4);
+}
+
+/* Result Box */
+.result-box{
+    background:rgba(255,255,255,.1);
+    border-radius:12px;
+    padding:15px;
+    font-size:22px;
+    text-align:center;
+    font-weight:bold;
+}
+
+/* AI Box */
+.ai-box{
+    background:rgba(255,255,255,.08);
+    border-left:5px solid #00c6ff;
+    padding:15px;
+    border-radius:10px;
+    margin-top:15px;
+}
+
+/* Score Circle */
+.score-circle{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:20px auto;
+    font-size:30px;
+    font-weight:bold;
+    color:white;
+    background:conic-gradient(#00c853 0deg,#d50000 0deg);
+}
+
+/* Progress */
+.progress{
+    height:12px;
+    background:#333;
+    border-radius:20px;
+}
+
+.progress-bar{
+    background:linear-gradient(90deg,#00c853,#00e676);
+}
+
+/* Canvas */
+canvas{
+    margin-top:25px;
+    background:white;
+    border-radius:12px;
+    padding:10px;
+}
+.score-box{
+    margin-top:20px;
+    text-align:center;
+    background:#16213e;
+    padding:20px;
+    border-radius:12px;
+    font-size:22px;
+}
+.loan-box{
+    margin-top:15px;
+    background:#1f2937;
+    padding:18px;
+    text-align:center;
+    border-radius:12px;
+    font-size:22px;
+}
+.light-mode{
+    background:white;
+    color:black;
+}
+
+.light-mode .card{
+    background:white;
+    color:black;
+}
+
+.light-mode .form-control{
+    background:#f0f0f0;
+    color:black;
+}
+/* Light Mode */
+.light-mode{
+    background: white;
+    color: black;
+}
+
+.light-mode .card{
+    background: white;
+    color: black;
+}
+
+/* Make labels black in Light Mode */
+.light-mode label,
+.light-mode .form-label{
+    color: black !important;
+}
+
+/* Inputs */
+.light-mode .form-control{
+    background: #f8f9fa;
+    color: black;
+    border: 1px solid #ced4da;
+}
+
+/* Placeholders */
+.light-mode .form-control::placeholder{
+    color: #6c757d;
+}
+/* Light Mode */
+.light-mode{
+    background: white;
+    color: black;
+}
+
+.light-mode .card{
+    background: white;
+    color: black;
+}
+
+/* Make labels black in Light Mode */
+.light-mode label,
+.light-mode .form-label{
+    color: black !important;
+}
+
+/* Inputs */
+.light-mode .form-control{
+    background: #f8f9fa;
+    color: black;
+    border: 1px solid #ced4da;
+}
+
+/* Placeholders */
+.light-mode .form-control::placeholder{
+    color: #6c757d;
+}
+.floating-icon{
+    position:fixed;
+    font-size:40px;
+    opacity:0.2;
+    animation: float 4s infinite ease-in-out;
+}
+
+.icon1{
+    top:10%;
+    left:5%;
+}
+
+.icon2{
+    top:20%;
+    right:5%;
+}
+
+.icon3{
+    bottom:10%;
+    left:8%;
+}
+
+@keyframes float{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-15px);}
+    100%{transform:translateY(0);}
+}
